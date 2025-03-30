@@ -13,6 +13,7 @@ morgan.token('postString', function getPostReq(req) {
 
 app.use(getPostString);
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postString'))
+app.use(express.static('dist'))
 
 let persons = [
     {
@@ -68,16 +69,20 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-    const id = request.params.id
-    persons = persons.filter(note => note.id !== id)
+    const id = request.params.id;
+    console.log('Deleting id:', id);
+    console.log('Before delete:', persons);
 
-    response.status(204).end()
-})
+    persons = persons.filter(person => person.id !== id);
+
+    console.log('After delete:', persons);
+    response.status(204).end();
+});
 
 function generateId() {
     const minCeiled = Math.ceil(0);
     const maxFloored = Math.floor(999999);
-    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+    return String(Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled));
 }
 
 
