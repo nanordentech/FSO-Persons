@@ -1,12 +1,10 @@
 const mongoose = require('mongoose')
 
-const password = process.argv[2]
-
-//const url = `mongodb+srv://nanordentech:wrongPassword@cluster0.mwu9fsz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-const url = process.env.MONGODB_URI
-
 mongoose.set('strictQuery', false)
 
+const url = process.env.MONGODB_URI
+
+console.log('connecting to', url)
 mongoose.connect(url)
     .then(result => {
         console.log('connected to MongoDB')
@@ -14,7 +12,6 @@ mongoose.connect(url)
     .catch(error => {
         console.log('error connecting to MongoDB:', error.message)
     })
-
 
 const personSchema = new mongoose.Schema({
     name: String,
