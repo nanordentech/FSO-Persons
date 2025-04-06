@@ -60,7 +60,7 @@ function generateId() {
 }
 
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
 
     if (!body.name || !body.number) {
@@ -78,15 +78,7 @@ app.post('/api/persons', (request, response) => {
     person.save().then(savedPerson => {
         response.json(savedPerson)
     })
-    // if (!persons.find(existingPerson => person.name === existingPerson.name)) {
-    //     persons = persons.concat(person)
-    //     response.json(person)
-    // }
-    // else {
-    //     return response.status(400).json({
-    //         error: `${body.name} is already in the phonebook!`
-    //     })
-    // }
+        .catch(error, next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
