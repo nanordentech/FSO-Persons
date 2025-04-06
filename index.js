@@ -75,9 +75,10 @@ app.post('/api/persons', (request, response, next) => {
         id: generateId(),
     })
 
-    person.save().then(savedPerson => {
-        response.json(savedPerson)
-    })
+    person.save()
+        .then(savedPerson => {
+            response.json(savedPerson)
+        })
         .catch(error, next(error))
 })
 
