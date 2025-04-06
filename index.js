@@ -10,7 +10,7 @@ morgan.token('postString', function getPostReq(req) {
     return req.postString
 })
 
-app.use(getPostString);
+app.use(getPostString)
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postString'))
 
 
@@ -21,7 +21,7 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/info', (request, response) => {
-    const time = new Date();
+    const time = new Date()
     Person.find({}).then(persons => {
         response.send(`
         <div>
@@ -47,16 +47,16 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndDelete(request.params.id)
-        .then(result => {
+        .then(() => {
             response.status(204).end()
         })
         .catch(error => next(error))
-});
+})
 
 function generateId() {
-    const minCeiled = Math.ceil(0);
-    const maxFloored = Math.floor(999999);
-    return String(Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled));
+    const minCeiled = Math.ceil(0)
+    const maxFloored = Math.floor(999999)
+    return String(Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled))
 }
 
 
@@ -103,8 +103,8 @@ app.put('/api/persons/:id', (request, response, next) => {
 })
 
 function getPostString(req, res, next) {
-    req.postString = JSON.stringify(req.body);
-    next();
+    req.postString = JSON.stringify(req.body)
+    next()
 }
 
 
